@@ -18,9 +18,13 @@ const { writeFileSync, mkdirSync } = require('fs');
             if (payload.user.login !== 'github-actions[bot]') {
                 continue;
             }
-            const [, raweval] = payload.body.match(/\`\`\`json\n(\S+)\n\`\`\`/);
-            const evaluation = JSON.parse(raweval);
-            global.CACHE[evaluation.id] = evaluation;
+            try {
+                const [, raweval] = payload.body.match(/\`\`\`json\n(\S+)\n\`\`\`/);
+                const evaluation = JSON.parse(raweval);
+                global.CACHE[evaluation.id] = evaluation;
+            } catch {
+                continue;
+            }
         }
         if (global.NEXTSINCE === global.SINCE) {
             break;
