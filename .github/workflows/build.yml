@@ -21,7 +21,7 @@ jobs:
       - name: Release
         run: |
           echo 'node_modules' > .gitignore
-          echo '.*' > .gitignore
+          echo '.*' >> .gitignore
           git config --global user.email "evm-golf@github.io"
           git config --global user.name "evm-golf"
           git checkout -b release
